@@ -1,5 +1,7 @@
 export interface Produto{
+  idItem: number
   idCategoria: number
+  categoria: string
   item: string
   descricaoItem: string
   preco: number
@@ -8,4 +10,5 @@ export interface Produto{
   codigoPreco: number
   precoVenda: number
   unidade: string
+  quantidadeEstoque: number
 }

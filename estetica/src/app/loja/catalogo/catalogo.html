@@ -1,0 +1,22 @@
+<div id="div-catalogo">
+    <h1> Catalogo </h1>
+
+    <div id="div-lista-produtos">
+        @for(elem of listaProduto(); track elem.idItem){
+            <div class="div-item-produto">
+                <span class="item-produto">
+                    {{elem.idItem}} - {{elem.idCategoria}} - {{elem.categoria}} - {{elem.item}} - {{elem.descricaoItem}} - 
+                    {{elem.preco}} - {{elem.tipoItem}} - {{elem.ativoProdutoServico}} - {{elem.codigoPreco}} - 
+                    {{elem.precoVenda}} - {{elem.unidade}} - {{elem.quantidadeEstoque}}
+                </span>
+                <span class="btns-catalogo">
+                    <button class="lnk-adicionar" (click)="adicionarAoCarrinho(elem)"> Adicionar </button>
+                </span>
+            </div>
+        }@empty {
+            <div class="div-item-produto">
+                NENHUM PRODUTO DISPONIVEL
+            </div>
+        }
+    </div>
+</div>
