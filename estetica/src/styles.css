@@ -1,1 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --cor-primaria: #9c5a8a;
+  --cor-primaria-escura: #7a4069;
+  --cor-fundo: #faf6f9;
+  --cor-card: #ffffff;
+  --cor-texto: #3a2f38;
+  --cor-borda: #e6d9e2;
+  --cor-erro: #c0392b;
+  --cor-sucesso: #2e8b57;
+  --raio: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.5;
+}
+
+h1, h2 { color: var(--cor-primaria-escura); margin-bottom: 16px; }
+
+button, .btn {
+  background: var(--cor-primaria);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .2s;
+}
+button:hover:not(:disabled) { background: var(--cor-primaria-escura); }
+button:disabled { background: #bbb; cursor: not-allowed; }
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #fff;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--cor-primaria);
+  border-color: transparent;
+}
+
+/* validação dos formulários (RF20) */
+.erro-campo { color: var(--cor-erro); font-size: .85rem; margin-top: 4px; }
+input.ng-invalid.ng-touched { border-color: var(--cor-erro); }
+
+/* mensagens de retorno (RF19) */
+.msg-sucesso { background: #e6f4ec; color: var(--cor-sucesso); padding: 10px; border-radius: 8px; }
+.msg-erro { background: #fbeaea; color: var(--cor-erro); padding: 10px; border-radius: 8px; }
+
+/* tabelas do painel administrativo */
+table { width: 100%; border-collapse: collapse; background: var(--cor-card); border-radius: var(--raio); overflow: hidden; }
+th { background: var(--cor-primaria); color: #fff; text-align: left; }
+th, td { padding: 10px 14px; border-bottom: 1px solid var(--cor-borda); }
+tr:hover td { background: #f6eef3; }

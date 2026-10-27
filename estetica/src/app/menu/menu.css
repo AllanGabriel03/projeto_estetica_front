@@ -1,0 +1,39 @@
+#cabecalho {
+  background: var(--cor-primaria);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+#logo {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+#menu {
+  margin-left: auto;   /* mantém o menu à direita */
+}
+
+#menu-ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rota-lnk {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: block;
+}
+
+.rota-lnk:hover,
+.rota-lnk.active {
+  background: rgba(255, 255, 255, .2);
+}
