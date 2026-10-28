@@ -1,1 +1,36 @@
-<p>carrinho works!</p>
+<div id="carrinho">
+    <h2>Carrinho</h2>
+
+    <div id="itens-carrinho">
+        @for (item of listaCarrinho(); track item.produto.idItem){
+            <div class="item-carrinho">
+                <span class="dados-produtos">
+                    Id: {{ item.produto.idItem }} | Nome: {{ item.produto.item }} | Descrição: 
+                    {{ item.produto.descricaoItem }} | R$: {{ item.produto.precoVenda }} | Estoque: 
+                    {{ item.produto.quantidadeEstoque }}
+                </span>
+
+                <div class="controle-quantidade">
+                    <label>Quantidade:</label>
+
+                    <input type="number" [value]="item.quantidade" min="1" [max]="item.produto.quantidadeEstoque"
+                      (change)="alterarQuantidade(item, event: $event)" />
+                </div>
+
+                <span class="links-lista">
+                    <a class="lnk-excluir" (click)="excluirProduto(item)"> Excluir </a>
+                </span>
+            </div>
+        }@empty {
+            <div class="div-item-produto">NENHUM PRODUTO NO CARRINHO</div>
+        }
+    </div>
+
+    <div class="finalizar-pedido">
+        <button type="button" class="btn-finalizar" (click)="finalizarPedido()">Finalizar Pedido</button>
+    </div>
+
+    <div class="resumo-carrinho">
+        <app-resumo-carrinho></app-resumo-carrinho>
+    </div>
+</div>
