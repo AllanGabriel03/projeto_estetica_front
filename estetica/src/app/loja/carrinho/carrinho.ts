@@ -18,6 +18,7 @@ export class Carrinho {
   constructor(
     private router: Router,
     private carrinhoService: CarrinhoService,
+    private pedidoService: PedidoService,
   ) {}
 
   ngOnInit(){
