@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CarrinhoService } from '../../services/carrinho';
+import { Router } from '@angular/router';
 import { ProdutoService } from '../../services/produto-service';
 import { ItemCarrinho } from '../../models/item-carrinho';
 import { switchMap } from 'rxjs';
+import { PedidoService } from '../../services/pedido-service';
 
 @Component({
   imports: [],
@@ -11,12 +13,11 @@ import { switchMap } from 'rxjs';
   templateUrl: './carrinho.html',
 })
 export class Carrinho {
-  listaCarrinho = signal<item-carrinho[]>([]);
+  listaCarrinho = signal<ItemCarrinho[]>([]);
 
   constructor(
     private router: Router,
     private carrinhoService: CarrinhoService,
-    private produtoService: ProdutoService,
   ) {}
 
   ngOnInit(){
