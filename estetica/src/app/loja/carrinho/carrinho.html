@@ -14,7 +14,7 @@
                     <label>Quantidade:</label>
 
                     <input type="number" [value]="item.quantidade" min="1" [max]="item.produto.quantidadeEstoque"
-                      (change)="alterarQuantidade(item, event: $event)" />
+                      (change)="alterarQuantidade(item,$event)" />
                 </div>
 
                 <span class="links-lista">

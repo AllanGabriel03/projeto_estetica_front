@@ -4,10 +4,12 @@ import { Router } from '@angular/router';
 import { ProdutoService } from '../../services/produto-service';
 import { ItemCarrinho } from '../../models/item-carrinho';
 import { switchMap } from 'rxjs';
-import { PedidoService } from '../../services/pedido-service';
+import { AtendimentoService } from '../../services/atendimento-service';
+import { AtendimentoAddPut } from '../../models/atendimento-add-put';
+import { ResumoCarrinho } from '../../resumo-carrinho/resumo-carrinho';
 
 @Component({
-  imports: [],
+  imports: [ResumoCarrinho],
   selector: 'app-carrinho',
   styleUrl: './carrinho.css',
   templateUrl: './carrinho.html',
@@ -18,7 +20,7 @@ export class Carrinho {
   constructor(
     private router: Router,
     private carrinhoService: CarrinhoService,
-    private pedidoService: PedidoService,
+    private atendimentoService: AtendimentoService,
   ) {}
 
   ngOnInit(){
@@ -58,37 +60,33 @@ export class Carrinho {
     }
 
     const IDPESSOA_TESTE = 1;
+    const IDFUNCIONARIO_PADRAO = 1;
 
-    const novoPedido: PedidoCreate = {
-      idpessoa: IDPESSOA_TESTE,
-      data_pedido: new Date().toISOString().split('T')[0],
-      status_pedido: 'A',
+    const novoAtendimento: AtendimentoAddPut = {
+      idAtendimento: 0,
+      idPessoa: IDPESSOA_TESTE,
+      dataAtendimento: new Date().toISOString().split('T')[0],
+      statusAtendimento: 'Aberto',
+      itens: itens.map((item) => ({
+        idAtendimento: 0,
+        idItem: item.produto.idItem,
+        idFuncionario: IDFUNCIONARIO_PADRAO,
+        quantidade: item.quantidade,
+        valorUnitario: item.produto.precoVenda,
+      })),
     };
 
-    this.pedidoService
-    .criarPedido(novoPedido)
-    .pipe(
-      switchMap((pedidoCriado) => {
-        const produtosDoPedido: PedidoProdutoCreate[] = itens.map((item) => ({
-          idpedido: pedidoCriado.idpedido,
-          idItem: item.produto.idItem,
-          quantidade:item.quantidade,
-          precoVenda: item.produto.precoVenda,
-        }));
-
-        return this.pedidoService.adicionarProdutos(pedidoCriado.idpedido, produtosDoPedido);
-      }),
-    )
-    .subscribe({
-       next: () => {
-        console.log('Pedido finalizado com sucesso');
+    this.atendimentoService.criar(novoAtendimento).subscribe({
+      next: () => {
+        alert('Atendimento registrado com sucesso!');
         this.carrinhoService.limparCarrinho();
         this.listarItens();
-        this.router.navigate(['/home']);
+        this.router.navigate(['/catalogo']);
       },
-      error: (msgErro) => {
-          console.log('Erro ao finalizar pedido', msgErro);
-        },
+      error: (erro) => {
+        console.log('Erro ao finalizar atendimento', erro);
+        alert(erro.error?.mensagem ?? 'Erro ao registrar o atendimento.');
+      },
     });
   }
 }

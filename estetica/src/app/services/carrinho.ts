@@ -10,13 +10,16 @@ export class CarrinhoService {
     this.itens().reduce((soma, i) => soma + i.produto.precoVenda * i.quantidade, 0)
   );
 
+  listar(): ItemCarrinho[] {
+    return this.itens();
+  }
+
   adicionar(produto: Produto): string {
     const lista = this.itens();
     const existente = lista.find(i => i.produto.idItem === produto.idItem);
     const ehProduto = produto.tipoItem === 'Produto'; // ajuste para o valor real do seu banco
 
     if (existente) {
-      // serviço não é mercadoria: não aumenta a quantidade
       if (!ehProduto) return 'Este serviço já está no carrinho.';
 
       if (existente.quantidade >= (produto.quantidadeEstoque ?? 0))
@@ -39,11 +42,11 @@ export class CarrinhoService {
       i.produto.idItem === idItem ? { ...i, quantidade } : i));
   }
 
-  remover(idItem: number) {
+  removerDoCarrinho(idItem: number) {
     this.itens.set(this.itens().filter(i => i.produto.idItem !== idItem));
   }
 
-  limpar() {
+  limparCarrinho() {
     this.itens.set([]);
   }
 }
